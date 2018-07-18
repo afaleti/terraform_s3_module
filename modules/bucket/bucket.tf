@@ -32,18 +32,18 @@ resource "aws_s3_bucket" "generic" {
     }
   }
 
-  # Lifecycle rule to expire versioned objects, enabled when versioning or replication is enabled
+  # Lifecycle rule to expire versioned objects, enabled by default when versioning is enabled
   lifecycle_rule {
     id = "Expire old object versions"
     prefix = ""
-    enabled = "${(var.enable_versioning) && var.enable_lifecycle}"
+    enabled = "${(var.enable_versioning) && var.enable_version_lifecycle}"
 
     noncurrent_version_expiration {
       days = "${var.lifecyle_days_versions}"
     }
   }
 
-  # Lifecycle rule to expire object delete markers, enabled when versioning or replication is enabled
+  # Lifecycle rule to expire object delete markers, enabled when versioning is enabled
   lifecycle_rule {
     id = "Expire object delete markers"
     prefix = ""

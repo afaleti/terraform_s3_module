@@ -14,6 +14,7 @@ variable "versioning_expire_deletes" { default = true }
 # lifecyle config
 variable "enable_lifecycle"             { default = false }
 variable "lifecyle_days"                { default = 150 }
+variable "enable_version_lifecycle"     { default = true }
 variable "lifecyle_days_versions"       { default = 30 } # Days to keep old object versions
 variable "lifecyle_days_delete_markers" { default = 10 } # Days to keep delete markers
 variable "lifecycle_prefix"             { default = ""} # Blank = "Whole Bucket"

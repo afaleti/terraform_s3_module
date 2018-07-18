@@ -37,7 +37,7 @@ resource "aws_s3_bucket" "generic" {
   lifecycle_rule {
     id = "Expire old object versions"
     prefix = ""
-    enabled = "${(var.enable_versioning || var.enable_replica) && var.enable_lifecycle}"
+    enabled = "${(var.enable_versioning || var.enable_replica) && var.enable_version_lifecycle}"
 
     noncurrent_version_expiration {
       days = "${var.lifecyle_days_versions}"
