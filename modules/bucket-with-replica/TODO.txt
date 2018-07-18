@@ -1,0 +1,1 @@
+When terraform .12 drops, refactor replica back in to main bucket with the fancy new if statement wrappers
