@@ -21,7 +21,7 @@ resource "aws_s3_bucket" "logging_bucket" {
 
 # Example Standard bucket with nothing flashy
 module "normal_bucket" {
-  source = "./modules/s3/"
+  source = "modules/bucket/"
 
   bucket = "${var.name_prefix}-normal-bucket-${terraform.workspace}"
   logging_bucket = "${aws_s3_bucket.logging_bucket.id}"
@@ -31,7 +31,7 @@ module "normal_bucket" {
 
 # Example bucket with policy
 module "policy_bucket" {
-  source = "./modules/s3/"
+  source = "modules/bucket"
   policy = "${data.aws_iam_policy_document.policy_bucket.json}"
 
   bucket = "${var.name_prefix}-policy-bucket-${terraform.workspace}"
