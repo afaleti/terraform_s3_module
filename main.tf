@@ -25,6 +25,7 @@ module "normal_bucket" {
 
   bucket = "${var.name_prefix}-normal-bucket-${terraform.workspace}"
   logging_bucket = "${aws_s3_bucket.logging_bucket.id}"
+
   tag_env = "${terraform.workspace}"
   tag_creator = "John Doe"
 }
@@ -36,8 +37,9 @@ module "policy_bucket" {
 
   bucket = "${var.name_prefix}-policy-bucket-${terraform.workspace}"
   logging_bucket = "${aws_s3_bucket.logging_bucket.id}"
+
   tag_env = "${terraform.workspace}"
-  tag_creator = "John Doe"
+  tag_creator = "Freddie Mercury"
 }
 
 data "aws_iam_policy_document" "policy_bucket" {
@@ -50,4 +52,34 @@ data "aws_iam_policy_document" "policy_bucket" {
       "test",
     ]
   }
+}
+
+# Example Standard bucket with versioning disabled
+module "no_versioning_bucket" {
+  source = "modules/bucket/"
+
+  bucket = "${var.name_prefix}-no-versioning-bucket-${terraform.workspace}"
+  logging_bucket = "${aws_s3_bucket.logging_bucket.id}"
+
+  enable_versioning = false
+
+  tag_env = "${terraform.workspace}"
+  tag_creator = "Chase Graves"
+}
+
+# Example Standard bucket with a lifecycle
+module "no_versioning_bucket" {
+  source = "modules/bucket/"
+
+  bucket = "${var.name_prefix}-no-versioning-bucket-${terraform.workspace}"
+  logging_bucket = "${aws_s3_bucket.logging_bucket.id}"
+
+  enable_lifecycle = true
+  lifecyle_days = 10
+  lifecyle_days_versions = 3 # we ship a new version every day, only keep the last 3
+  lifecyle_prefix = "temp-" # our app uses the temp prefix for temporary files
+
+
+  tag_env = "${terraform.workspace}"
+  tag_creator = "Chase Graves"
 }
