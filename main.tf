@@ -16,6 +16,7 @@ resource "aws_s3_bucket" "logging_bucket" {
 
   tags {
     "Name" = "bucket-logging-${terraform.workspace}"
+    "source" = "terraform"
   }
 }
 
@@ -82,4 +83,20 @@ module "no_versioning_bucket" {
 
   tag_env = "${terraform.workspace}"
   tag_creator = "Chase Graves"
+}
+
+# Example Standard bucket with replication
+module "replicated_bucket" {
+  source = "modules/bucket-with-replica/"
+
+  bucket = "${var.name_prefix}-replicated-bucket-${terraform.workspace}"
+  logging_bucket = "${aws_s3_bucket.logging_bucket.id}"
+
+  enable_replica = true
+  replica_enable_cold_storage = true # We keep this data for compliance, move it to cold storage
+  replica_ia_days = "30" # We need to recover 30 days to rebuild the app for disaster recovery, move older data to IA
+  replica_glacier_days = "90" # We only need to recover 90 days for standard requests. Older data should move to glacier
+
+  tag_env = "${terraform.workspace}"
+  tag_creator = "John Doe"
 }
