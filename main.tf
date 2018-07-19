@@ -46,7 +46,7 @@ module "policy_bucket" {
 data "aws_iam_policy_document" "policy_bucket" {
   "statement" {
     actions = [
-      "s3:source",
+      "s3:ListBucket",
     ]
 
     resources = [
