@@ -3,7 +3,7 @@ Example s3 module that supports simple lifecycles to keep unexpected s3 costs do
 
 ### Default lifecycles:
 #### enable_multipart_cleanup
-By default S3 leaves partial uploads in the bucket and happily charges you to store these hidden objects.  This rule will purge them after an appropriate waiting period.  This feature is anabled by default.
+By default S3 leaves partial uploads in the bucket and happily charges you to store these hidden objects.  This rule will purge them after an appropriate waiting period.  This feature is enabled by default.
 
 #### enable_version_lifecycle
 A common forgotten issue with object versioning is paying to store old versions of objects indefinitely. This lifecycle rule cleans up old object versions based on a time setting. This feature is enabled by default when versioning is enabled.
